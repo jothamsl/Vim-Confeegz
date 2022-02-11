@@ -52,17 +52,21 @@ call plug#begin()
 Plug 'itchyny/lightline.vim'                      " Status Bar
 Plug 'sheerun/vim-polyglot'                       " Multi-Language Support
 Plug 'tpope/vim-surround'                         " Surrounding Modifier
-"Plug 'neoclide/coc.nvim', { 'branch': 'release' } " Vscode-like Features
 Plug 'jiangmiao/auto-pairs'                       " Autoclosing brackets
-Plug 'google/vim-codefmt'                         " Code Formatter 
 Plug 'preservim/nerdtree'                         " File Explorer
 Plug 'tpope/vim-vinegar'                          " Netrw modifier
+Plug 'Shirk/vim-gas'                              " Assembly Syntax Highlight
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                           " Fuzzy Finder
 Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'                         " Code Formatter 
 Plug 'google/vim-glaive'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'prabirshrestha/vim-lsp'                     " Neovim lsp
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'            " Auto Complete
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 Plug 'ryanoasis/vim-devicons'                     " Icons
 Plug 'luochen1990/rainbow'                        " Rainbow Tags
@@ -74,11 +78,12 @@ Plug 'dylanaraps/wal.vim'              " pywal
 Plug 'mangeshrex/uwu.vim'              " uwu 
 Plug 'pacokwon/onedarkhc.vim'          " onedark
 Plug 'ajmwagar/vim-deus'               " deus
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' } "challenger_deep
 call plug#end()
 
 """ SET THEME:
 set background=dark
-colorscheme onedarkhc
+colorscheme challenger_deep
 
 " PLUGINS CONFIG ++++++++++++++++++
 
@@ -109,7 +114,7 @@ augroup END
 
 " ====================== Light-Line ==========================
 let g:lightline = {
-      \ 'colorscheme': 'powerline',
+      \ 'colorscheme': 'challenger_deep',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
