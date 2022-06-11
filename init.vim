@@ -7,6 +7,7 @@
 
 au! BufWritePost $MYVIMRC source %   " Auto souce when writing to init.vim alternatively you can run :source $MYVIMRC
 cmap w!! w !sudo tee %
+let g:python3_host_prog = '/usr/bin/python3'
 
 " //////////////////// CORE \\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -56,8 +57,8 @@ Plug 'jiangmiao/auto-pairs'                       " Autoclosing brackets
 Plug 'preservim/nerdtree'                         " File Explorer
 Plug 'tpope/vim-vinegar'                          " Netrw modifier
 Plug 'Shirk/vim-gas'                              " Assembly Syntax Highlight
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'                           " Fuzzy Finder
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'                           " Fuzzy Finder
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'                         " Code Formatter 
 Plug 'google/vim-glaive'
@@ -67,9 +68,9 @@ Plug 'prabirshrestha/vim-lsp'                     " Neovim lsp
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'            " Auto Complete
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
+Plug 'puremourning/vimspector'                    " Debugger
 Plug 'ryanoasis/vim-devicons'                     " Icons
-Plug 'luochen1990/rainbow'                        " Rainbow Tags
+"Plug 'luochen1990/rainbow'                        " Rainbow Tags
 Plug 'joeytwiddle/sexy_scroller.vim'              " Smooth Scroller
 
 " THEMES
@@ -79,11 +80,16 @@ Plug 'mangeshrex/uwu.vim'              " uwu
 Plug 'pacokwon/onedarkhc.vim'          " onedark
 Plug 'ajmwagar/vim-deus'               " deus
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' } "challenger_deep
+Plug 'wadackel/vim-dogrun'
+Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'AlessandroYorba/Alduin'          " Alduin
+Plug 'rakr/vim-two-firewatch'          " two-firewatch
+
 call plug#end()
 
 """ SET THEME:
 set background=dark
-colorscheme challenger_deep
+colorscheme two-firewatch
 
 " PLUGINS CONFIG ++++++++++++++++++
 
@@ -123,6 +129,8 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+
+let g:airline_theme='twofirewatch'
 
 " //////////////////// MAPPINGS \\\\\\\\\\\\\\\\\\\\\\\
 
