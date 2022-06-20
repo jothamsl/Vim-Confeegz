@@ -72,6 +72,7 @@ Plug 'puremourning/vimspector'                    " Debugger
 Plug 'ryanoasis/vim-devicons'                     " Icons
 "Plug 'luochen1990/rainbow'                        " Rainbow Tags
 Plug 'joeytwiddle/sexy_scroller.vim'              " Smooth Scroller
+Plug 'vlime/vlime', {'rtp': 'vim/'}               " Lisp support
 
 " THEMES
 Plug 'morhetz/gruvbox'                 " gruvbox
