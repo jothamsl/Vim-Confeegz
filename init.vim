@@ -50,7 +50,6 @@ set incsearch ignorecase smartcase hlsearch             " Highlight text while s
 
 call plug#begin()
 " MAIN
-Plug 'itchyny/lightline.vim'                      " Status Bar
 Plug 'sheerun/vim-polyglot'                       " Multi-Language Support
 Plug 'tpope/vim-surround'                         " Surrounding Modifier
 Plug 'jiangmiao/auto-pairs'                       " Autoclosing brackets
@@ -73,6 +72,8 @@ Plug 'ryanoasis/vim-devicons'                     " Icons
 "Plug 'luochen1990/rainbow'                        " Rainbow Tags
 Plug 'joeytwiddle/sexy_scroller.vim'              " Smooth Scroller
 Plug 'vlime/vlime', {'rtp': 'vim/'}               " Lisp support
+Plug 'nvim-lualine/lualine.nvim'                  " Status Bar
+Plug 'kyazdani42/nvim-web-devicons'               " Icons
 
 " THEMES
 Plug 'morhetz/gruvbox'                 " gruvbox
@@ -85,12 +86,16 @@ Plug 'wadackel/vim-dogrun'
 Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'AlessandroYorba/Alduin'          " Alduin
 Plug 'rakr/vim-two-firewatch'          " two-firewatch
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+Plug 'cocopon/iceberg.vim'             " iceberg
+Plug 'pineapplegiant/spaceduck', { 'branch': 'main' } " spaceduck
 
 call plug#end()
 
+
 """ SET THEME:
 set background=dark
-colorscheme two-firewatch
+colorscheme iceberg 
 
 " PLUGINS CONFIG ++++++++++++++++++
 
@@ -119,19 +124,50 @@ augroup autoformat_settings
   autocmd FileType vue AutoFormatBuffer prettier
 augroup END
 
-" ====================== Light-Line ==========================
-let g:lightline = {
-      \ 'colorscheme': 'challenger_deep',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
-      \ },
-      \ }
+" ===================== Lua line =============================
 
-let g:airline_theme='twofirewatch'
+lua << END
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    always_divide_middle = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename', 'buffers'},
+    lualine_x = {'encoding', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+}
+
+END
 
 " //////////////////// MAPPINGS \\\\\\\\\\\\\\\\\\\\\\\
 
