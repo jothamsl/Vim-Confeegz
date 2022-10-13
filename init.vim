@@ -28,11 +28,13 @@ set splitbelow              " Horizontal splits will automatically be below
 set splitright              " Vertical splits will automatically split right
 set t_Co=256                " Support 256 colors
 set tabstop=3               " Insert 3 spaces for tab
+set shiftwidth=3
+set expandtab
 set smarttab                " Makes tabbing smarter
 set smartindent             " Makes indenting smart
 set autoindent              " Good automatic indenting
 set number                  " Line Numbers
-"set laststatus=0            " Always display the status line
+"set laststatus=1            " Always display the status line
 set noshowmode              " Disables stuff like -- INSERT --
 set clipboard=unnamedplus   " Copy & Past between vim and other stuff
 set history=1000            " Set History limit
@@ -50,79 +52,100 @@ set incsearch ignorecase smartcase hlsearch             " Highlight text while s
 
 call plug#begin()
 " MAIN
-Plug 'sheerun/vim-polyglot'                       " Multi-Language Support
-Plug 'tpope/vim-surround'                         " Surrounding Modifier
-Plug 'jiangmiao/auto-pairs'                       " Autoclosing brackets
-Plug 'preservim/nerdtree'                         " File Explorer
-Plug 'tpope/vim-vinegar'                          " Netrw modifier
 Plug 'Shirk/vim-gas'                              " Assembly Syntax Highlight
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf.vim'                           " Fuzzy Finder
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'                         " Code Formatter 
-Plug 'google/vim-glaive'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'prabirshrestha/vim-lsp'                     " Neovim lsp
-Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete.vim'            " Auto Complete
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'puremourning/vimspector'                    " Debugger
+Plug 'matze/vim-move'                             " Line Mover
+Plug 'sbdchd/neoformat'                           " Formatter
+Plug 'dense-analysis/ale'                         " Error and Info
+Plug 'preservim/nerdtree'                         " File Explorer
+Plug 'gelguy/wilder.nvim'                         " Customized Bottom prompt
+Plug 'tpope/vim-fugitive'                         " Git Client
+Plug 'tpope/vim-surround'                         " Surrounding Modifier
+Plug 'sheerun/vim-polyglot'                       " Multi-Language Support
+Plug 'jiangmiao/auto-pairs'                       " Autoclosing brackets
 Plug 'ryanoasis/vim-devicons'                     " Icons
-"Plug 'luochen1990/rainbow'                        " Rainbow Tags
-Plug 'joeytwiddle/sexy_scroller.vim'              " Smooth Scroller
-Plug 'vlime/vlime', {'rtp': 'vim/'}               " Lisp support
 Plug 'nvim-lualine/lualine.nvim'                  " Status Bar
-Plug 'kyazdani42/nvim-web-devicons'               " Icons
+Plug 'yuttie/comfortable-motion.vim'              " Smooth Scroll
+Plug 'nvim-telescope/telescope.nvim'              " Execution Hub
+Plug 'prabirshrestha/vim-lsp'                     " Neovim lsp
+Plug 'prabirshrestha/asyncomplete-lsp.vim'        " Neovim lsp async
+Plug 'prabirshrestha/asyncomplete.vim'            " Auto Complete
+"Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhickKey!'] }    " Show Keybindings
+
+
+
+" DEPENDACY PACKAGES
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'mattn/vim-lsp-settings'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nixprime/cpsm'
+
 
 " THEMES
 Plug 'morhetz/gruvbox'                 " gruvbox
+Plug 'ajmwagar/vim-deus'               " deus
 Plug 'dylanaraps/wal.vim'              " pywal
 Plug 'mangeshrex/uwu.vim'              " uwu 
-Plug 'pacokwon/onedarkhc.vim'          " onedark
-Plug 'ajmwagar/vim-deus'               " deus
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' } "challenger_deep
 Plug 'wadackel/vim-dogrun'
-Plug 'tyrannicaltoucan/vim-deep-space'
-Plug 'AlessandroYorba/Alduin'          " Alduin
-Plug 'rakr/vim-two-firewatch'          " two-firewatch
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'cocopon/iceberg.vim'             " iceberg
+Plug 'pacokwon/onedarkhc.vim'          " onedark
+Plug 'rakr/vim-two-firewatch'          " two-firewatch
+Plug 'AlessandroYorba/Alduin'          " Alduin
+Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'pineapplegiant/spaceduck', { 'branch': 'main' } " spaceduck
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' } "challenger_deep
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 
 call plug#end()
 
+" WILDER CONFIGSS \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+call wilder#setup({'modes': [':', '/', '?']})
+call wilder#set_option('renderer', wilder#wildmenu_renderer({
+      \ 'highlighter': wilder#basic_highlighter(),
+      \ }))
+call wilder#set_option('renderer', wilder#popupmenu_renderer({
+      \ 'pumblend': 20,
+      \ }))
+call wilder#set_option('renderer', wilder#popupmenu_renderer({
+      \ 'highlighter': [
+      \   wilder#pcre2_highlighter(),
+      \   wilder#python_cpsm_highlighter(),
+      \ ],
+      \ 'highlights': {
+      \   'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),
+      \ },
+      \ }))
 
-""" SET THEME:
+" Can also be passed to the 'highlights' option
+call wilder#set_option('renderer', wilder#popupmenu_renderer({
+      \ 'highlighter': wilder#basic_highlighter(),
+      \ 'highlights': {
+      \   'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),
+      \ },
+      \ }))
+
+
+call wilder#set_option('renderer', wilder#popupmenu_renderer(wilder#popupmenu_border_theme({
+      \ 'highlights': {
+      \   'border': 'rounded',
+      \ },
+      \ 'border': 'rounded',
+      \ })))
+
+"" SET THEME:
 set background=dark
-colorscheme iceberg 
+colorscheme onedarkhc
+
 
 " PLUGINS CONFIG ++++++++++++++++++
 
 " ====================== Sexy scroller ======================
-let g:SexyScroller_ScrollTime  = 10    " Time taken for buffer to scroll one line or column
+let g:SexyScroller_ScrollTime  = 13    " Time taken for buffer to scroll one line or column
 let g:SexyScroller_CursorTime  = 3     " Time taken for cursor to travel one line
 let g:SexyScroller_MaxTime     = 400   " Maximum amount of time that longer scrolls can take
-let g:SexyScroller_EasingStyle = 1     " Choose easing time
+let g:SexyScroller_EasingStyle = 3     " Choose easing time
 
 " ========================= Rainbow ==========================
 let g:rainbow_active = 1
-
-" ====================== Glaive Format ======================
-" Autoformat
-augroup autoformat_settings
-  autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
-  autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType go AutoFormatBuffer gofmt
-  autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-  autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
-  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
-  autocmd FileType rust AutoFormatBuffer rustfmt
-  autocmd FileType vue AutoFormatBuffer prettier
-augroup END
 
 " ===================== Lua line =============================
 
@@ -131,8 +154,8 @@ require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'auto',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+    component_separators = { left = ' ', right = '|'},
+    section_separators = { left = ' ', right = ' '},
     disabled_filetypes = {
       statusline = {},
       winbar = {},
@@ -148,7 +171,7 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename', 'buffers'},
+    lualine_c = {'filename'},
     lualine_x = {'encoding', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
@@ -169,9 +192,33 @@ require('lualine').setup {
 
 END
 
+" Clap =============================
+let g:clap_layout = { 'relative': 'editor' }
+
+" vim lsp ===========================
+set foldmethod=expr
+  \ foldexpr=lsp#ui#vim#folding#foldexpr()
+  \ foldtext=lsp#ui#vim#folding#foldtext()
+
+" Comfortable-Motion =====================
+let g:comfortable_motion_friction = 0.0
+let g:comfortable_motion_air_drag = 4.0
+let g:comfortable_motion_no_default_key_mappings = 1
+let g:comfortable_motion_impulse_multiplier = 1  " Feel free to increase/decrease this value.
+nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 3)<CR>
+nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -3)<CR>
+nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 6)<CR>
+nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -6)<CR>
+
 " //////////////////// MAPPINGS \\\\\\\\\\\\\\\\\\\\\\\
 
 " Leader -> \
+
+" Save File
+nnoremap <C-s> :w<CR>
+
+" Clear Search highlight
+nnoremap <C-c> :nohlsearch<CR>
 
 " Escape Terminal in Neovim
 tnoremap <esc> <C-\><C-N>
@@ -194,3 +241,5 @@ nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+
