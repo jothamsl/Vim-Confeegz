@@ -7,12 +7,11 @@
 
 au! BufWritePost $MYVIMRC source %   " Auto souce when writing to init.vim alternatively you can run :source $MYVIMRC
 cmap w!! w !sudo tee %
-let g:python3_host_prog = '/usr/bin/python3'
+"let g:python3_host_prog = '/usr/bin/python3'
 
 " //////////////////// CORE \\\\\\\\\\\\\\\\\\\\\\\\\
 
 syntax enable               " Enable syntax highlighting
-set visualbell              " Errors flash screen
 set emoji                   " Enable emoji's
 set hidden                  " Required to keep multiple buffers open
 set hlsearch                " Highlight search results
@@ -36,7 +35,7 @@ set autoindent              " Good automatic indenting
 set number                  " Line Numbers
 "set laststatus=1            " Always display the status line
 set noshowmode              " Disables stuff like -- INSERT --
-set clipboard=unnamedplus   " Copy & Past between vim and other stuff
+"set clipboard=unnamedplus   " Copy & Past between vim and other stuff
 set history=1000            " Set History limit
 set wildmode=longest,list   " Get bash-like tab completions
 set inccommand=nosplit      " Visual feedback while substituting
@@ -48,30 +47,44 @@ set termguicolors
 autocmd TermOpen * setlocal nonumber norelativenumber   " No line number for terminal
 set incsearch ignorecase smartcase hlsearch             " Highlight text while searching
 
+" /////////////////// GLOBALS \\\\\\\\\\\\\\\\\\\\\
+let g:loaded_matchparen        = 1
+let g:loaded_matchit           = 1
+let g:loaded_logiPat           = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_tarPlugin         = 1
+" let g:loaded_man               = 1
+let g:loaded_gzip              = 1
+let g:loaded_zipPlugin         = 1
+let g:loaded_2html_plugin      = 1
+let g:loaded_shada_plugin      = 1
+let g:loaded_spellfile_plugin  = 1
+let g:loaded_netrw             = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_tutor_mode_plugin = 1
+let g:loaded_remote_plugins    = 1
+
 " /////////////////// PLUGINS \\\\\\\\\\\\\\\\\\\\\\\
 
 call plug#begin()
 " MAIN
-Plug 'Shirk/vim-gas'                              " Assembly Syntax Highlight
 Plug 'matze/vim-move'                             " Line Mover
-Plug 'sbdchd/neoformat'                           " Formatter
-Plug 'dense-analysis/ale'                         " Error and Info
-Plug 'preservim/nerdtree'                         " File Explorer
-Plug 'gelguy/wilder.nvim'                         " Customized Bottom prompt
-Plug 'tpope/vim-fugitive'                         " Git Client
+"Plug 'sbdchd/neoformat'                           " Formatter
+"Plug 'dense-analysis/ale'                         " Error and Info
+Plug 'lambdalisue/fern.vim'                       " File Explorer
 Plug 'tpope/vim-surround'                         " Surrounding Modifier
 Plug 'sheerun/vim-polyglot'                       " Multi-Language Support
 Plug 'jiangmiao/auto-pairs'                       " Autoclosing brackets
 Plug 'ryanoasis/vim-devicons'                     " Icons
-Plug 'nvim-lualine/lualine.nvim'                  " Status Bar
+Plug 'itchyny/lightline.vim'
 Plug 'yuttie/comfortable-motion.vim'              " Smooth Scroll
-Plug 'nvim-telescope/telescope.nvim'              " Execution Hub
 Plug 'prabirshrestha/vim-lsp'                     " Neovim lsp
 Plug 'prabirshrestha/asyncomplete-lsp.vim'        " Neovim lsp async
 Plug 'prabirshrestha/asyncomplete.vim'            " Auto Complete
-"Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhickKey!'] }    " Show Keybindings
-
-
+Plug 'dstein64/vim-startuptime'
+Plug 'alvan/vim-closetag'                         " Close HTML tags
+Plug 'itchyny/vim-cursorword'                     " Text underline
+Plug 'folke/which-key.nvim'
 
 " DEPENDACY PACKAGES
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -79,61 +92,24 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nixprime/cpsm'
 
-
 " THEMES
 Plug 'morhetz/gruvbox'                 " gruvbox
-Plug 'ajmwagar/vim-deus'               " deus
-Plug 'dylanaraps/wal.vim'              " pywal
 Plug 'mangeshrex/uwu.vim'              " uwu 
-Plug 'wadackel/vim-dogrun'
 Plug 'cocopon/iceberg.vim'             " iceberg
 Plug 'pacokwon/onedarkhc.vim'          " onedark
 Plug 'rakr/vim-two-firewatch'          " two-firewatch
 Plug 'AlessandroYorba/Alduin'          " Alduin
-Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'pineapplegiant/spaceduck', { 'branch': 'main' } " spaceduck
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' } "challenger_deep
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+Plug 'fenetikm/falcon'
+Plug 'whatyouhide/vim-gotham'
 
 call plug#end()
 
-" WILDER CONFIGSS \\\\\\\\\\\\\\\\\\\\\\\\\\\\
-call wilder#setup({'modes': [':', '/', '?']})
-call wilder#set_option('renderer', wilder#wildmenu_renderer({
-      \ 'highlighter': wilder#basic_highlighter(),
-      \ }))
-call wilder#set_option('renderer', wilder#popupmenu_renderer({
-      \ 'pumblend': 20,
-      \ }))
-call wilder#set_option('renderer', wilder#popupmenu_renderer({
-      \ 'highlighter': [
-      \   wilder#pcre2_highlighter(),
-      \   wilder#python_cpsm_highlighter(),
-      \ ],
-      \ 'highlights': {
-      \   'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),
-      \ },
-      \ }))
-
-" Can also be passed to the 'highlights' option
-call wilder#set_option('renderer', wilder#popupmenu_renderer({
-      \ 'highlighter': wilder#basic_highlighter(),
-      \ 'highlights': {
-      \   'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),
-      \ },
-      \ }))
-
-
-call wilder#set_option('renderer', wilder#popupmenu_renderer(wilder#popupmenu_border_theme({
-      \ 'highlights': {
-      \   'border': 'rounded',
-      \ },
-      \ 'border': 'rounded',
-      \ })))
-
 "" SET THEME:
 set background=dark
-colorscheme onedarkhc
+colorscheme gotham
+let g:gruvbox_contrast_dark = "soft"
 
 
 " PLUGINS CONFIG ++++++++++++++++++
@@ -146,52 +122,6 @@ let g:SexyScroller_EasingStyle = 3     " Choose easing time
 
 " ========================= Rainbow ==========================
 let g:rainbow_active = 1
-
-" ===================== Lua line =============================
-
-lua << END
-require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'auto',
-    component_separators = { left = ' ', right = '|'},
-    section_separators = { left = ' ', right = ' '},
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
-    always_divide_middle = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
-    }
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
-}
-
-END
-
 " Clap =============================
 let g:clap_layout = { 'relative': 'editor' }
 
@@ -210,9 +140,60 @@ nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impu
 nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 6)<CR>
 nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -6)<CR>
 
+" Vim-Closetag ===========================
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*vue'
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+"
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
+
+
+
+
+
 " //////////////////// MAPPINGS \\\\\\\\\\\\\\\\\\\\\\\
 
 " Leader -> \
+
+" Format File
+"nnoremap <C-
 
 " Save File
 nnoremap <C-s> :w<CR>
@@ -223,23 +204,7 @@ nnoremap <C-c> :nohlsearch<CR>
 " Escape Terminal in Neovim
 tnoremap <esc> <C-\><C-N>
  
-" -> NERDTREE
+" -> FERN
 nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-
-" -> TELESCOPE
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
-" Using Lua functions
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-
+nnoremap <C-n> :Fern %:h -drawer<CR>
 
