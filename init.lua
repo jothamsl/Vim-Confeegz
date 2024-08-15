@@ -4,32 +4,32 @@ vim.cmd([[autocmd BufNewFile,BufRead *.js set filetype=javascript.jsx]])
 vim.cmd([[autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx]])
 
 -- OPTIONS
-vim.opt.number = true                      -- Show line number in Gutter
-vim.opt.mouse = "a"                        -- Allow mouse functionality
-vim.opt.ignorecase = true                  -- Ignore uppercase letters when searching
-vim.opt.smartcase = true                   -- Make search ignore uppercase letters unless term has uppercase
-vim.opt.hlsearch = false                   -- Highlights the results of the previous search
-vim.opt.wrap = false                       -- Make long lines always visible by wrapping to next line
-vim.opt.breakindent = true                 -- Preserve indentation of virtual lines (lines that are wrapped)
-vim.opt.tabstop = 2                        -- The amount of space a Tab character can occupy
-vim.opt.shiftwidth = 2                     -- Amount of characters Neovim will use to indent a line.
-vim.opt.expandtab = false                  -- Controls whether or not Neovim should transform a Tab character to spaces.
-vim.opt.visualbell = true                  -- Use visual bell instead of beeping
+vim.opt.number = true -- Show line number in Gutter
+vim.opt.mouse = "a" -- Allow mouse functionality
+vim.opt.ignorecase = true -- Ignore uppercase letters when searching
+vim.opt.smartcase = true -- Make search ignore uppercase letters unless term has uppercase
+vim.opt.hlsearch = true -- Highlights the results of the previous search
+vim.opt.wrap = false -- Make long lines always visible by wrapping to next line
+vim.opt.breakindent = true -- Preserve indentation of virtual lines (lines that are wrapped)
+vim.opt.tabstop = 2 -- The amount of space a Tab character can occupy
+vim.opt.shiftwidth = 2 -- Amount of characters Neovim will use to indent a line.
+vim.opt.expandtab = false -- Controls whether or not Neovim should transform a Tab character to spaces.
+vim.opt.visualbell = false -- Use visual bell instead of beeping
 vim.opt.undodir = ".vim/undoBufferHistory" -- Set undo buffer history location
 vim.opt.completeopt = "noinsert,menuone,noselect"
 
 -- KEYBINDINGS
-vim.g.mapleader = " "                                                                                            -- LEADER KEY
-vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", { desc = "Save" })                                            -- Save buffer
-vim.keymap.set({ "n", "x" }, "cp", '"+y')                                                                        -- Copy to clipboard
-vim.keymap.set({ "n", "x" }, "cv", '"+p')                                                                        -- Paste from clipboard
-vim.keymap.set({ "n", "x" }, "x", '"_x')                                                                         -- Delete text without changing the internal registers
-vim.keymap.set({ "n", "x" }, "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle Neovim Tree" })            -- Toggle Neovim Tree
-vim.keymap.set({ "n", "x", "t" }, "<leader>t", "<cmd>ToggleTerm<cr>", { desc = "Toggle Terminal" })              -- Toggle Terminal
-vim.keymap.set({ "n", "x" }, "<leader>m", "<cmd>TroubleToggle<cr>", { desc = "Toggle Trouble Bar" })             -- Toggle Trouble
-vim.keymap.set({ "n", "x" }, "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Toggle Undo Tree" })              -- Toggle Undo Tree
+vim.g.mapleader = " " -- LEADER KEY
+vim.keymap.set("n", "<leader>w", "<cmd>write<cr>", { desc = "Save" }) -- Save buffer
+vim.keymap.set({ "n", "x" }, "cp", '"+y') -- Copy to clipboard
+vim.keymap.set({ "n", "x" }, "cv", '"+p') -- Paste from clipboard
+vim.keymap.set({ "n", "x" }, "x", '"_x') -- Delete text without changing the internal registers
+vim.keymap.set({ "n", "x" }, "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle Neovim Tree" }) -- Toggle Neovim Tree
+vim.keymap.set({ "n", "x", "t" }, "<leader>t", "<cmd>ToggleTerm<cr>", { desc = "Toggle Terminal" }) -- Toggle Terminal
+vim.keymap.set({ "n", "x" }, "<leader>m", "<cmd>TroubleToggle<cr>", { desc = "Toggle Trouble Bar" }) -- Toggle Trouble
+vim.keymap.set({ "n", "x" }, "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Toggle Undo Tree" }) -- Toggle Undo Tree
 vim.keymap.set({ "n", "x" }, "<leader>lf", "<cmd>Neoformat<cr>", { desc = "Format Document" })
-vim.keymap.set({ "n", "x" }, "<leader>n", "<cmd>BufferLineCycleNext<cr>", { desc = "Cycle To Next Buffer" })     -- Go to Next Buffer
+vim.keymap.set({ "n", "x" }, "<leader>n", "<cmd>BufferLineCycleNext<cr>", { desc = "Cycle To Next Buffer" }) -- Go to Next Buffer
 vim.keymap.set({ "n", "x" }, "<leader>p", "<cmd>BufferLineCyclePrev<cr>", { desc = "Cycle To Previous Buffer" }) -- Go to Previous Buffer
 vim.keymap.set(
 	"n",
@@ -73,7 +73,7 @@ lazy.opts = {}
 lazy.setup({
 	-- THEMES
 	{ "pineapplegiant/spaceduck" },
-	{ "rose-pine/neovim",        name = "rose-pine" },
+	{ "rose-pine/neovim", name = "rose-pine" },
 
 	-- UTILS
 	{
@@ -84,17 +84,18 @@ lazy.setup({
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "L3MON4D3/LuaSnip" },
 		},
-	},                                                          -- LSP
-	{ "williamboman/mason.nvim" },                              -- LSP, Formatter, Linter manager
-	{ "williamboman/mason-lspconfig.nvim" },                    -- Simple Lsp Settings
-	{ "sbdchd/neoformat" },                                     -- Formatter
-	{ "f-person/auto-dark-mode.nvim" },                         -- Auto Dark Mode on Mac
-	{ "akinsho/toggleterm.nvim",          version = "*", config = true }, -- Terminal Window
-	{ "alvan/vim-closetag" },                                   -- HTML Tag Clozer
-	{ "numToStr/Comment.nvim" },                                -- Comment Toggle
-	{ "jiangmiao/auto-pairs" },                                 -- Automatic Tag Clozer
+	}, -- LSP
+	{ "williamboman/mason.nvim" }, -- LSP, Formatter, Linter manager
+	{ "williamboman/mason-lspconfig.nvim" }, -- Simple Lsp Settings
+	{ "sbdchd/neoformat" }, -- Formatter
+	{ "f-person/auto-dark-mode.nvim" }, -- Auto Dark Mode on Mac
+	{ "akinsho/toggleterm.nvim", version = "*", config = true }, -- Terminal Window
+	{ "alvan/vim-closetag" }, -- HTML Tag Clozer
+	{ "numToStr/Comment.nvim" }, -- Comment Toggle
+	{ "jiangmiao/auto-pairs" }, -- Automatic Tag Clozer
 	{ "alvan/vim-closetag" },
-	{ "mbbill/undotree" },                                      -- Undo Tree
+	{ "mbbill/undotree" }, -- Undo Tree
+	{ "samodostal/image.nvim" },
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
@@ -102,26 +103,26 @@ lazy.setup({
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
 		end,
-	},                                    -- Key commands display
+	}, -- Key commands display
 	{ "nvim-treesitter/nvim-treesitter" }, -- Language Highlights & Parsing
 	{ "folke/trouble.nvim" },
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.1",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
 	},
+	-- { "Exafunction/codeium.vim" }, -- AI Code Help
 
 	-- UI
-	{ "ap/vim-css-color" },                   -- Display CSS colors
-	{ "lewis6991/gitsigns.nvim" },            -- Show git information in buffer
-	{ "nvim-lualine/lualine.nvim" },          -- Bottom Line
-	{ "yuttie/comfortable-motion.vim" },      -- Smooth scroll
+	{ "ap/vim-css-color" }, -- Display CSS colors
+	{ "lewis6991/gitsigns.nvim" }, -- Show git information in buffer
+	{ "nvim-lualine/lualine.nvim" }, -- Bottom Line
+	{ "yuttie/comfortable-motion.vim" }, -- Smooth scroll
 	{ "lukas-reineke/indent-blankline.nvim" }, -- Indent Guide
-	{ "nvim-tree/nvim-web-devicons" },        -- Icons
-	{ "nvim-tree/nvim-tree.lua" },            -- File Explorer
-	{ "akinsho/bufferline.nvim",            version = "*" },
+	{ "nvim-tree/nvim-web-devicons" }, -- Icons
+	{ "nvim-tree/nvim-tree.lua" }, -- File Explorer
+	{ "akinsho/bufferline.nvim", version = "*" },
 })
 
 -- PLUGIN CONFIGS --
@@ -143,6 +144,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 lsp.ensure_installed({
 	"tsserver",
 	"rust_analyzer",
+	"tailwindcss",
 })
 
 lsp.setup_nvim_cmp({ mapping = cmp_mappings })
@@ -162,7 +164,9 @@ lsp.set_preferences({
 })
 
 -- (Optional) Configure lua language server for neovim
-require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
+local lsp_config = require("lspconfig")
+lsp_config.lua_ls.setup(lsp.nvim_lua_ls())
+lsp_config.tailwindcss.setup({})
 
 lsp.setup()
 
@@ -268,6 +272,22 @@ require("nvim-tree").setup({
 
 ----------------------------------------------------------------
 
+-- IMAGE
+require("image").setup({
+	render = {
+		min_padding = 5,
+		show_label = true,
+		use_dither = true,
+		foreground_color = false,
+		background_color = false,
+	},
+	events = {
+		update_on_nvim_resize = true,
+	},
+})
+
+----------------------------------------------------------------
+
 -- COMFORTABLE MOTION
 vim.g.comfortable_motion_friction = 100.0
 vim.g.comfortable_motion_air_drag = 2.0
@@ -276,7 +296,7 @@ vim.g.comfortable_motion_air_drag = 2.0
 
 -- TOGGLE TERMINAL
 require("toggleterm").setup({
-	-- direction = "float",
+	direction = "float",
 	-- shading_factor = -50,
 })
 
@@ -307,7 +327,7 @@ end
 ----------------------------------------------------------------
 
 -- THEMING
-vim.opt.termguicolors = true     -- Enable Terminal colors
+vim.opt.termguicolors = true -- Enable Terminal colors
 vim.cmd.colorscheme("rose-pine") -- Set Theme
 
 ----------------------------------------------------------------
