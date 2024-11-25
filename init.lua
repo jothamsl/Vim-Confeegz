@@ -112,6 +112,7 @@ lazy.setup({
 			"nvim-lua/plenary.nvim",
 		},
 	},
+	{ "github/copilot.vim" },
 	-- { "Exafunction/codeium.vim" }, -- AI Code Help
 
 	-- UI
@@ -142,7 +143,6 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 })
 
 lsp.ensure_installed({
-	"tsserver",
 	"rust_analyzer",
 	"tailwindcss",
 })
